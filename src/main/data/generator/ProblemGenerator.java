@@ -4,4 +4,5 @@ import main.data.expression.Expression;
 
 public interface ProblemGenerator {
     Expression generateProblem();
+    Expression generateProblem(int target);
 }
