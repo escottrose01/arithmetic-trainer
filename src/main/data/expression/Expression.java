@@ -41,7 +41,18 @@ public class Expression {
                 value = left.evaluate() / right.evaluate();
                 break;
         }
-        
+
         return value;
+    }
+
+    @Override
+    public String toString() {
+        return "(" +
+                left.toString() +
+                ") " +
+                operator.toString() +
+                " (" +
+                right.toString() +
+                ")";
     }
 }
