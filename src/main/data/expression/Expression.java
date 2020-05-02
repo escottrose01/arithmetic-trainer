@@ -51,12 +51,38 @@ public class Expression {
             return value.toString();
         }
 
-        return "(" +
-                left.toString() +
-                ") " +
-                operator.toString() +
-                " (" +
-                right.toString() +
-                ")";
+        String l = left.toString();
+        String r = right.toString();
+
+        switch (operator) {
+            case SUBTRACT:
+                if (right.operator == Operator.SUBTRACT) {
+                    r = "(" + r + ")";
+                }
+                break;
+            case MULTIPLY:
+                if (left.operator == Operator.ADD ||
+                        left.operator == Operator.SUBTRACT) {
+                    l = "(" + l + ")";
+                }
+                if (right.operator == Operator.ADD ||
+                        right.operator == Operator.SUBTRACT) {
+                    r = "(" + r + ")";
+                }
+                break;
+            case DIVIDE:
+                if (left.operator == Operator.ADD ||
+                        left.operator == Operator.SUBTRACT) {
+                    l = "(" + l + ")";
+                }
+                if (right.operator == Operator.ADD ||
+                        right.operator == Operator.SUBTRACT ||
+                        right.operator == Operator.DIVIDE) {
+                    r = "(" + r + ")";
+                }
+                break;
+        }
+
+        return l + " " + operator.toString() + " " + r;
     }
 }
