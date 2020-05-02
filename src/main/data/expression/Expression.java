@@ -47,6 +47,10 @@ public class Expression {
 
     @Override
     public String toString() {
+        if (operator == null) {
+            return value.toString();
+        }
+
         return "(" +
                 left.toString() +
                 ") " +
