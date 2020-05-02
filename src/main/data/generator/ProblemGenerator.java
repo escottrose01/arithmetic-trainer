@@ -1,4 +1,7 @@
-package main.data;
+package main.data.generator;
+
+import main.data.expression.Expression;
 
 public interface ProblemGenerator {
+    Expression GenerateProblem();
 }
