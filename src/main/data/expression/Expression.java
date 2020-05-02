@@ -22,6 +22,14 @@ public class Expression {
         this.value = value;
     }
 
+    public Expression getLeft() {
+        return left;
+    }
+
+    public Expression getRight() {
+        return right;
+    }
+
     public int evaluate() {
         if (value != null) {
             return value;
