@@ -85,7 +85,8 @@ public class Expression {
                 }
                 if (right.operator == Operator.ADD ||
                         right.operator == Operator.SUBTRACT ||
-                        right.operator == Operator.DIVIDE) {
+                        right.operator == Operator.DIVIDE ||
+                        right.operator == Operator.MULTIPLY) {
                     r = "(" + r + ")";
                 }
                 break;
