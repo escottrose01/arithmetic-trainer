@@ -14,7 +14,7 @@ public class MultProblemGenerator implements ProblemGenerator {
     public MultProblemGenerator() {
         this.rng = new Random();
         this.minVal = 1;
-        this.maxVal = 10;
+        this.maxVal = 9;
     }
 
     public MultProblemGenerator(int minVal, int maxVal) {
@@ -25,7 +25,7 @@ public class MultProblemGenerator implements ProblemGenerator {
 
     @Override
     public Expression generateProblem() {
-        return generateProblem(minVal + rng.nextInt(maxVal - minVal));
+        return generateProblem(minVal + rng.nextInt(maxVal - minVal + 1));
     }
 
     @Override
@@ -42,8 +42,9 @@ public class MultProblemGenerator implements ProblemGenerator {
 
     private ArrayList<Integer> getDivisors(int target) {
         ArrayList<Integer> divisors = new ArrayList<>();
+        divisors.add(1); // Always want at least one element
 
-        for (int i = 1; i <= target; ++i) {
+        for (int i = 2; i <= target; ++i) {
             if (target % i == 0) {
                 divisors.add(i);
             }

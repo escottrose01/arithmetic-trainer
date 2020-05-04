@@ -13,7 +13,7 @@ public class SubProblemGenerator implements ProblemGenerator {
     public SubProblemGenerator() {
         this.rng = new Random();
         this.minVal = 1;
-        this.maxVal = 10;
+        this.maxVal = 9;
     }
 
     public SubProblemGenerator(int minVal, int maxVal) {
@@ -24,12 +24,12 @@ public class SubProblemGenerator implements ProblemGenerator {
 
     @Override
     public Expression generateProblem() {
-        return generateProblem(minVal + rng.nextInt(maxVal - minVal));
+        return generateProblem(minVal + rng.nextInt(maxVal - minVal + 1));
     }
 
     @Override
     public Expression generateProblem(int target) {
-        int a = 2 * target - rng.nextInt(target);
+        int a = 2 * target - rng.nextInt(target + 1) + 1;
         int b = a - target;
         return new Expression(
                 new Expression(a),
