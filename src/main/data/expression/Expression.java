@@ -64,7 +64,8 @@ public class Expression {
 
         switch (operator) {
             case SUBTRACT:
-                if (right.operator == Operator.SUBTRACT) {
+                if (right.operator == Operator.SUBTRACT ||
+                    right.operator == Operator.ADD) {
                     r = "(" + r + ")";
                 }
                 break;
