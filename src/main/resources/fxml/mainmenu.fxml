@@ -12,15 +12,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.MainMenuController">
    <bottom>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <buttons>
-          <Button fx:id="StartButton" mnemonicParsing="false" text="Start">
+          <Button fx:id="startButton" mnemonicParsing="false" onAction="#start" text="Start">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Button>
-            <Button fx:id="QuitButton" mnemonicParsing="false" text="Quit">
+            <Button fx:id="quitButton" mnemonicParsing="false" onAction="#quit" text="Quit">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Button>
@@ -44,15 +44,15 @@
                         </Label>
                      </children>
                   </HBox>
-                  <RadioButton mnemonicParsing="false" selected="true" text="Timed">
+                  <RadioButton fx:id="timedRadioButton" mnemonicParsing="false" onAction="#updateGameType" selected="true" text="Timed">
                      <toggleGroup>
                         <ToggleGroup fx:id="gametype" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton mnemonicParsing="false" text="Count" toggleGroup="$gametype" />
-                  <RadioButton mnemonicParsing="false" text="Zen" toggleGroup="$gametype" />
-                  <Label fx:id="textBoxPrompt" text="Time (minutes):" />
-                  <TextField fx:id="textBox" text="5" />
+                  <RadioButton fx:id="countRadioButton" mnemonicParsing="false" onAction="#updateGameType" text="Count" toggleGroup="$gametype" />
+                  <RadioButton fx:id="zenRadioButton" mnemonicParsing="false" onAction="#updateGameType" text="Zen" toggleGroup="$gametype" />
+                  <Label fx:id="gameTypeTextFieldLabel" text="Time (minutes):" />
+                  <TextField fx:id="gameTypeTextField" onAction="#updateGameTypeOptions" text="5" />
                </children>
                <padding>
                   <Insets top="10.0" />
@@ -69,26 +69,26 @@
                         </Label>
                      </children>
                   </HBox>
-                  <RadioButton mnemonicParsing="false" selected="true" text="Addition">
+                  <RadioButton fx:id="additionRadioButton" mnemonicParsing="false" onAction="#updateProblemType" selected="true" text="Addition">
                      <toggleGroup>
                         <ToggleGroup fx:id="gamemode" />
                      </toggleGroup>
                      <font>
                         <Font name="Droid Sans" size="12.0" />
                      </font></RadioButton>
-                  <RadioButton mnemonicParsing="false" text="Subtraction" toggleGroup="$gamemode">
+                  <RadioButton fx:id="subtractionRadioButton" mnemonicParsing="false" onAction="#updateProblemType" text="Subtraction" toggleGroup="$gamemode">
                      <font>
                         <Font name="Droid Sans" size="12.0" />
                      </font></RadioButton>
-                  <RadioButton mnemonicParsing="false" text="Multiplication" toggleGroup="$gamemode">
+                  <RadioButton fx:id="multiplicationRadioButton" mnemonicParsing="false" onAction="#updateProblemType" text="Multiplication" toggleGroup="$gamemode">
                      <font>
                         <Font name="Droid Sans" size="12.0" />
                      </font></RadioButton>
-                  <RadioButton mnemonicParsing="false" text="Division" toggleGroup="$gamemode">
+                  <RadioButton fx:id="divisionRadioButton" mnemonicParsing="false" onAction="#updateProblemType" text="Division" toggleGroup="$gamemode">
                      <font>
                         <Font name="Droid Sans" size="12.0" />
                      </font></RadioButton>
-                  <RadioButton mnemonicParsing="false" text="Combo" toggleGroup="$gamemode" />
+                  <RadioButton fx:id="comboRadioButton" mnemonicParsing="false" onAction="#updateProblemType" text="Combo" toggleGroup="$gamemode" />
                </children>
                <HBox.margin>
                   <Insets />
@@ -110,28 +110,28 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefWidth="200.0" spacing="10.0">
                      <children>
-                        <RadioButton mnemonicParsing="false" selected="true" text="Easy">
+                        <RadioButton fx:id="easyRadioButton" mnemonicParsing="false" onAction="#updateOptions" selected="true" text="Easy">
                            <toggleGroup>
                               <ToggleGroup fx:id="difficulty" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton mnemonicParsing="false" text="Medium" toggleGroup="$difficulty" />
-                        <RadioButton mnemonicParsing="false" text="Hard" toggleGroup="$difficulty" />
-                        <RadioButton mnemonicParsing="false" text="Custom" toggleGroup="$difficulty" />
+                        <RadioButton fx:id="mediumRadioButton" mnemonicParsing="false" onAction="#updateOptions" text="Medium" toggleGroup="$difficulty" />
+                        <RadioButton fx:id="hardRadioButton" mnemonicParsing="false" onAction="#updateOptions" text="Hard" toggleGroup="$difficulty" />
+                        <RadioButton fx:id="customRadioButton" mnemonicParsing="false" onAction="#updateOptions" text="Custom" toggleGroup="$difficulty" />
                      </children>
                   </HBox>
-                  <VBox fx:id="customOptions" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+                  <VBox fx:id="customOptions" prefHeight="200.0" prefWidth="100.0" spacing="10.0" visible="false">
                      <children>
                         <HBox prefWidth="200.0" spacing="5.0">
                            <children>
-                              <Label text="Minimum Answer" />
-                              <TextField text="0" />
+                              <Label fx:id="minimumAnswerTextFieldLabel" text="Minimum Answer" />
+                              <TextField fx:id="minimumAnswerTextField" onAction="#updateMinimumAnswer" text="0" />
                            </children>
                         </HBox>
                         <HBox prefWidth="200.0" spacing="5.0">
                            <children>
-                              <Label text="Maximum Answer" />
-                              <TextField text="10" />
+                              <Label fx:id="maximumAnswerTextFieldLabel" text="Maximum Answer" />
+                              <TextField fx:id="maximumAnswerTextField" onAction="#updateMaximumAnswer" text="10" />
                            </children>
                         </HBox>
                         <HBox prefWidth="200.0" />
