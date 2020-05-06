@@ -3,8 +3,14 @@ package main.controller;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import main.records.GameConfig;
 import main.records.GameType;
 import main.records.ProblemType;
 
@@ -103,8 +109,23 @@ public class MainMenuController {
     }
 
     @FXML
-    void start() {
-        // TODO: connect to game scene
+    void start(ActionEvent event) throws Exception {
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/fxml/game.fxml"));
+        Parent pane = loader.load();
+        Scene scene = new Scene(pane, 650, 400);
+        GameController controller = loader.getController();
+        controller.setVars(new GameConfig(
+                gameType,
+                problemType,
+                minAnswer,
+                maxAnswer,
+                4,
+                4
+        ));
+        controller.prepareGame();
+        stage.setScene(scene);
     }
 
     @FXML
@@ -209,6 +230,10 @@ public class MainMenuController {
         } else if (event.getSource() == comboRadioButton) {
             problemType = ProblemType.COMBO;
         }
+    }
+
+    public void setVars(GameConfig config) {
+        
     }
 
     @FXML
