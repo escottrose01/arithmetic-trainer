@@ -277,7 +277,57 @@ public class MainMenuController {
      * @param config the configuration settings to load
      */
     public void setVars(GameConfig config) {
+        // Set gameType
+        gameType = config.getGameType();
+        switch (gameType) {
+            case TIMED:
+                timedRadioButton.fire();
+                break;
+            case COUNT:
+                countRadioButton.fire();
+                break;
+            case ZEN:
+                zenRadioButton.fire();
+                break;
+        }
 
+        // Set problemType
+        problemType = config.getProblemType();
+        switch (problemType) {
+            case ADDITION:
+                additionRadioButton.fire();
+                break;
+            case SUBTRACTION:
+                subtractionRadioButton.fire();
+                break;
+            case MULTIPLICATION:
+                multiplicationRadioButton.fire();
+                break;
+            case DIVISION:
+                divisionRadioButton.fire();
+                break;
+            case COMBO:
+                comboRadioButton.fire();
+                break;
+        }
+
+        // Set minAnswer
+        minimumAnswerTextField.setText(String.valueOf(config.getMinAnswer()));
+        minimumAnswerTextField.fireEvent(new ActionEvent());
+
+        // Set maxAnswer
+        maximumAnswerTextField.setText(String.valueOf(config.getMaxAnswer()));
+        maximumAnswerTextField.fireEvent(new ActionEvent());
+
+        // Set minLength
+        // TODO: implement minLength
+
+        // Set maxLength
+        // TODO: implement maxLength
+
+        // Set gameLength
+        gameTypeTextField.setText(String.valueOf(config.getGameLength()));
+        gameTypeTextField.fireEvent(new ActionEvent());
     }
 
     /**
