@@ -7,6 +7,7 @@ public class GameConfig {
     private int maxAnswer;
     private int minLength;
     private int maxLength;
+    private int gameLength;
 
     public static final GameConfig defaultConfig = new GameConfig(
             GameType.TIMED,
@@ -14,16 +15,19 @@ public class GameConfig {
             0,
             10,
             2,
-            4
+            4,
+            10
     );
 
-    public GameConfig(GameType gameType, ProblemType problemType, int minAnswer, int maxAnswer, int minLength, int maxLength) {
+    public GameConfig(GameType gameType, ProblemType problemType, int minAnswer, int maxAnswer,
+                      int minLength, int maxLength, int gameLength) {
         this.gameType = gameType;
         this.problemType = problemType;
         this.minAnswer = minAnswer;
         this.maxAnswer = maxAnswer;
         this.minLength = minLength;
         this.maxLength = maxLength;
+        this.gameLength = gameLength;
     }
 
     public GameType getGameType() {
@@ -48,5 +52,9 @@ public class GameConfig {
 
     public int getMaxLength() {
         return maxLength;
+    }
+
+    public int getGameLength() {
+        return gameLength;
     }
 }
