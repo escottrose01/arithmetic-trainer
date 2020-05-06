@@ -131,7 +131,8 @@ public class MainMenuController {
                 minAnswer,
                 maxAnswer,
                 4,
-                4
+                4,
+                gameLength
         ));
         controller.prepareGame();
         stage.setScene(scene);
