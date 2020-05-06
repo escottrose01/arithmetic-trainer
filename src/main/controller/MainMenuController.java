@@ -102,12 +102,21 @@ public class MainMenuController {
     @FXML
     private TextField maximumAnswerTextField;
 
+    /**
+     * Quits the application.
+     */
     @FXML
     void quit() {
         Platform.exit();
         System.exit(0);
     }
 
+    /**
+     * Starts the game by constructing the game scene and setting game parameters via the
+     * GameConfig object.
+     * @param event the event that called this method
+     * @throws Exception on failing to read game.fxml
+     */
     @FXML
     void start(ActionEvent event) throws Exception {
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -128,6 +137,11 @@ public class MainMenuController {
         stage.setScene(scene);
     }
 
+    /**
+     * Called when the game type buttons are pressed. Sets the game type based on the user
+     * selection.
+     * @param event the event that called this method
+     */
     @FXML
     void updateGameType(ActionEvent event) {
         if (event.getSource() == timedRadioButton) {
@@ -147,6 +161,10 @@ public class MainMenuController {
         }
     }
 
+    /**
+     * Updates the game type option; i.e. the length of the game, which may represent either time
+     * or number of questions asked.
+     */
     @FXML
     void updateGameTypeOptions() {
         try {
@@ -160,6 +178,10 @@ public class MainMenuController {
         }
     }
 
+    /**
+     * Updates the options based on the option radio buttons.
+     * @param event the event that called this method
+     */
     @FXML
     void updateOptions(ActionEvent event) {
         if (event.getSource() == easyRadioButton) {
@@ -185,6 +207,10 @@ public class MainMenuController {
         }
     }
 
+    /**
+     * Updates the minAnswer field based on user input into the minimumAnswerTextField, resolving
+     * ordering conflicts if this field is higher than the maxAnswer.
+     */
     @FXML
     void updateMinimumAnswer() {
         try {
@@ -201,6 +227,10 @@ public class MainMenuController {
         }
     }
 
+    /**
+     * Updates the maxAnswer field based on user input into the maximumAnswerTextField, resolving
+     * ordering conflicts if this field is smaller than the minAnswer.
+     */
     @FXML
     void updateMaximumAnswer() {
         try {
@@ -217,6 +247,10 @@ public class MainMenuController {
         }
     }
 
+    /**
+     * Updates the problemType field based on the problem type radio buttons.
+     * @param event the event that called this method
+     */
     @FXML
     void updateProblemType(ActionEvent event) {
         if (event.getSource() == additionRadioButton) {
@@ -232,10 +266,17 @@ public class MainMenuController {
         }
     }
 
+    /**
+     * Loads a set of configuration settings into this scene.
+     * @param config the configuration settings to load
+     */
     public void setVars(GameConfig config) {
-        
+
     }
 
+    /**
+     * Ensures that all fields were loaded properly from the fxml file.
+     */
     @FXML
     void initialize() {
         assert startButton != null : "fx:id=\"startButton\" was not injected: check your FXML file 'mainmenu.fxml'.";
