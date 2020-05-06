@@ -137,7 +137,7 @@ public class MainMenuController {
                 4,
                 gameLength
         ));
-        controller.prepareGame(); // TODO: Change to controller.StartGame()
+        controller.startGame();
 
         // Display scene
         stage.setScene(scene);

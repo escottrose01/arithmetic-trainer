@@ -80,8 +80,7 @@ public class GameController {
         equationLabel.setText(currentExpression.toString());
     }
 
-    // TODO: Change to startGame()
-    public void prepareGame() {
+    public void startGame() {
         getNewQuestion();
         answerBox.requestFocus();
     }
