@@ -119,11 +119,14 @@ public class MainMenuController {
      */
     @FXML
     void start(ActionEvent event) throws Exception {
+        // Load scene
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fxml/game.fxml"));
         Parent pane = loader.load();
         Scene scene = new Scene(pane, 650, 400);
+
+        // Configure scene
         GameController controller = loader.getController();
         controller.setVars(new GameConfig(
                 gameType,
@@ -134,7 +137,9 @@ public class MainMenuController {
                 4,
                 gameLength
         ));
-        controller.prepareGame();
+        controller.prepareGame(); // TODO: Change to controller.StartGame()
+
+        // Display scene
         stage.setScene(scene);
     }
 
