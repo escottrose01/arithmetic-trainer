@@ -14,15 +14,14 @@ import main.data.expression.Expression;
 import main.data.generator.ComboProblemGenerator;
 import main.data.generator.ProblemGenerator;
 import main.records.GameConfig;
-import main.records.GameType;
 import main.records.Operator;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class GameController {
+    private GameConfig config;
     private ProblemGenerator problemGenerator;
-    private GameType gameType;
     private Expression currentExpression;
 
     @FXML
@@ -48,11 +47,18 @@ public class GameController {
 
     @FXML
     void quit(ActionEvent event) throws Exception {
+        // Load scene
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fxml/mainmenu.fxml"));
         Parent pane = loader.load();
         Scene scene = new Scene(pane, 650, 400);
+
+        // Configure scene
+        MainMenuController controller = loader.getController();
+        controller.setVars(config);
+
+        // Display scene
         stage.setScene(scene);
     }
 
@@ -74,21 +80,22 @@ public class GameController {
         equationLabel.setText(currentExpression.toString());
     }
 
+    // TODO: Change to startGame()
     public void prepareGame() {
         getNewQuestion();
         answerBox.requestFocus();
     }
 
     public void setVars(GameConfig config) {
-        this.gameType = config.getGameType();
+        this.config = config;
 
         switch (config.getProblemType()) {
             case ADDITION:
                 problemGenerator = new ComboProblemGenerator(
                     config.getMinAnswer(),
                     config.getMaxAnswer(),
-                    4,
-                    4,
+                    config.getMinLength(),
+                    config.getMaxLength(),
                     new Operator[]{Operator.ADD}
                 );
                 break;
@@ -96,8 +103,8 @@ public class GameController {
                 problemGenerator = new ComboProblemGenerator(
                         config.getMinAnswer(),
                         config.getMaxAnswer(),
-                        4,
-                        4,
+                        config.getMinLength(),
+                        config.getMaxLength(),
                         new Operator[]{Operator.SUBTRACT}
                 );
                 break;
@@ -105,8 +112,8 @@ public class GameController {
                 problemGenerator = new ComboProblemGenerator(
                         config.getMinAnswer(),
                         config.getMaxAnswer(),
-                        4,
-                        4,
+                        config.getMinLength(),
+                        config.getMaxLength(),
                         new Operator[]{Operator.MULTIPLY}
                 );
                 break;
@@ -114,8 +121,8 @@ public class GameController {
                 problemGenerator = new ComboProblemGenerator(
                         config.getMinAnswer(),
                         config.getMaxAnswer(),
-                        4,
-                        4,
+                        config.getMinLength(),
+                        config.getMaxLength(),
                         new Operator[]{Operator.DIVIDE}
                 );
                 break;
@@ -123,8 +130,8 @@ public class GameController {
                 problemGenerator = new ComboProblemGenerator(
                         config.getMinAnswer(),
                         config.getMaxAnswer(),
-                        4,
-                        4,
+                        config.getMinLength(),
+                        config.getMaxLength(),
                         new Operator[]{Operator.ADD, Operator.SUBTRACT, Operator.MULTIPLY,
                                 Operator.DIVIDE}
                 );
