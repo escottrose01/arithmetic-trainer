@@ -1,5 +1,7 @@
 package main.controller;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,19 +12,26 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import main.data.expression.Expression;
 import main.data.generator.ComboProblemGenerator;
 import main.data.generator.ProblemGenerator;
 import main.records.GameConfig;
+import main.records.GameType;
 import main.records.Operator;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
+// TODO: change to label bindings
+
 public class GameController {
     private GameConfig config;
     private ProblemGenerator problemGenerator;
     private Expression currentExpression;
+    private int currentNumberQuestions;
+    private Timeline timeline;
+    private int currentTime;
 
     @FXML
     private ResourceBundle resources;
@@ -63,16 +72,35 @@ public class GameController {
     }
 
     @FXML
-    void submitAnswer(ActionEvent event) {
-
+    void submitAnswer() {
+        try {
+            int answer = Integer.parseInt(answerBox.getText());
+            if (answer == currentExpression.evaluate()) {
+                handleCorrectAnswer();
+            } else {
+                handleIncorrectAnswer();
+            }
+        } catch (NumberFormatException e) {
+            handleIncorrectAnswer(); // Should it be incorrect or ignored?
+        }
     }
 
-    public void updateLabelA(String s) {
-        labelA.setText(s);
+    private void handleIncorrectAnswer() {
+        answerBox.setText("");
     }
 
-    public void updateLabelB(String s) {
-        labelB.setText(s);
+    private void handleCorrectAnswer() {
+        answerBox.setText("");
+        if (config.getGameType() == GameType.COUNT) {
+            --currentNumberQuestions;
+            if (currentNumberQuestions == 0) {
+                endGame();
+            }
+        } else {
+            ++currentNumberQuestions;
+        }
+        labelB.setText(String.valueOf(currentNumberQuestions));
+        getNewQuestion();
     }
 
     public void getNewQuestion() {
@@ -81,13 +109,66 @@ public class GameController {
     }
 
     public void startGame() {
+        if (config.getGameType() == GameType.TIMED) {
+            startCountdown();
+        } else if (config.getGameType() == GameType.COUNT) {
+            currentNumberQuestions = config.getGameLength();
+            startCountup();
+        } else if (config.getGameType() == GameType.ZEN) {
+            startCountup();
+        }
+        labelB.setText(String.valueOf(currentNumberQuestions));
+
         getNewQuestion();
         answerBox.requestFocus();
+    }
+
+    private void startCountdown() {
+        currentTime = 60 * config.getGameLength();
+        labelA.setText(String.valueOf(currentTime));
+        timeline = new Timeline();
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.getKeyFrames().add(
+                new KeyFrame(
+                        Duration.seconds(1),
+                        event -> {
+                            --currentTime;
+                            labelA.setText(String.valueOf(currentTime));
+                            if (currentTime <= 0) {
+                                timeline.stop();
+                                endGame();
+                            }
+                        }
+                ));
+        timeline.playFromStart();
+    }
+
+    private void startCountup() {
+        currentTime = 0;
+        labelA.setText(String.valueOf(currentTime));
+        timeline = new Timeline();
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.getKeyFrames().add(
+                new KeyFrame(
+                        Duration.seconds(1),
+                        event -> {
+                            ++currentTime;
+                            labelA.setText(String.valueOf(currentTime));
+                        }
+                )
+        );
+        timeline.playFromStart();
+    }
+
+    private void endGame() {
+        // TODO: stub
+        quitButton.fireEvent(new ActionEvent());
     }
 
     public void setVars(GameConfig config) {
         this.config = config;
 
+        // TODO: Move constructor outside of switch
         switch (config.getProblemType()) {
             case ADDITION:
                 problemGenerator = new ComboProblemGenerator(
