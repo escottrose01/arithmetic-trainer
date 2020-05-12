@@ -5,6 +5,10 @@ import main.records.Operator;
 
 import java.util.Random;
 
+/**
+ * This class creates variable-length arithmetic problems with multiple operation types via an
+ * expression tree.
+ */
 public class ComboProblemGenerator implements ProblemGenerator {
     private AddProblemGenerator addGen;
     private SubProblemGenerator subGen;
@@ -97,6 +101,12 @@ public class ComboProblemGenerator implements ProblemGenerator {
         return generateProblem(target, minLength + rng.nextInt(maxLength - minLength + 1));
     }
 
+    /**
+     * Creates an expression of a desired length given a desired target value.
+     * @param target the target value to which the expression evaluates
+     * @param length the length of the expression, as the total number of integer literals
+     * @return a new Expression object
+     */
     private Expression generateProblem(int target, int length) {
         Operator op = ops[rng.nextInt(ops.length)];
         Expression tmp;

@@ -6,6 +6,9 @@ import main.records.Operator;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * This class creates multiplication problems via an expression tree.
+ */
 public class MultProblemGenerator implements ProblemGenerator {
     private Random rng;
     int minVal;
@@ -40,6 +43,11 @@ public class MultProblemGenerator implements ProblemGenerator {
         );
     }
 
+    /**
+     * Finds a list of divisors for a given value.
+     * @param target the value to find divisors for
+     * @return the list of divisors of target
+     */
     private ArrayList<Integer> getDivisors(int target) {
         ArrayList<Integer> divisors = new ArrayList<>();
         divisors.add(1); // Always want at least one element

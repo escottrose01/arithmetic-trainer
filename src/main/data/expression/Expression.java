@@ -2,6 +2,9 @@ package main.data.expression;
 
 import main.records.Operator;
 
+/**
+ * This class models a simple expression tree.
+ */
 public class Expression {
     Expression left;
     Expression right;
@@ -30,6 +33,10 @@ public class Expression {
         return right;
     }
 
+    /**
+     * Evaluate the expression tree, reducing the solution to a single int.
+     * @return the result of evaluating this expression tree
+     */
     public int evaluate() {
         if (value != null) {
             return value;

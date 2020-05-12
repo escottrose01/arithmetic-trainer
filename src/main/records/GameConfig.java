@@ -1,5 +1,8 @@
 package main.records;
 
+/**
+ * This class models a set of game configuration settings.
+ */
 public class GameConfig {
     private GameType gameType;
     private ProblemType problemType;
@@ -9,6 +12,7 @@ public class GameConfig {
     private int maxLength;
     private int gameLength;
 
+    // The default configuration
     public static final GameConfig defaultConfig = new GameConfig(
             GameType.TIMED,
             ProblemType.COMBO,

@@ -25,6 +25,9 @@ import java.util.ResourceBundle;
 
 // TODO: change to label bindings
 
+/**
+ * This class is responsible for controlling the Game scene.
+ */
 public class GameController {
     private GameConfig config;
     private ProblemGenerator problemGenerator;
@@ -54,6 +57,11 @@ public class GameController {
     @FXML
     private Label labelB;
 
+    /**
+     * Quits this scene, returning to the main menu.
+     * @param event the event that called this method
+     * @throws Exception exception on scene loading
+     */
     @FXML
     void quit(ActionEvent event) throws Exception {
         // Load scene
@@ -71,6 +79,9 @@ public class GameController {
         stage.setScene(scene);
     }
 
+    /**
+     * submits an answer from the answerBox, reacting based on the correctness of the answer.
+     */
     @FXML
     void submitAnswer() {
         try {
@@ -85,10 +96,16 @@ public class GameController {
         }
     }
 
+    /**
+     * Handles an incorrect answer.
+     */
     private void handleIncorrectAnswer() {
         answerBox.setText("");
     }
 
+    /**
+     * Handles a correct answer by creating a new problem.
+     */
     private void handleCorrectAnswer() {
         answerBox.setText("");
         if (config.getGameType() == GameType.COUNT) {
@@ -103,11 +120,17 @@ public class GameController {
         getNewQuestion();
     }
 
+    /**
+     * Gets a new question from the problemGenerator and updates the equationLabel.
+     */
     public void getNewQuestion() {
         currentExpression = problemGenerator.generateProblem();
         equationLabel.setText(currentExpression.toString());
     }
 
+    /**
+     * Starts the game by beginning the timer and problem counter and creating a question.
+     */
     public void startGame() {
         if (config.getGameType() == GameType.TIMED) {
             startCountdown();
@@ -123,6 +146,9 @@ public class GameController {
         answerBox.requestFocus();
     }
 
+    /**
+     * Begins the timer countdown from the time contained in config.
+     */
     private void startCountdown() {
         currentTime = 60 * config.getGameLength();
         labelA.setText(String.valueOf(currentTime));
@@ -143,6 +169,9 @@ public class GameController {
         timeline.playFromStart();
     }
 
+    /**
+     * Begins the timer countup from 0.
+     */
     private void startCountup() {
         currentTime = 0;
         labelA.setText(String.valueOf(currentTime));
@@ -160,11 +189,18 @@ public class GameController {
         timeline.playFromStart();
     }
 
+    /**
+     * Ends the game, displaying the results.
+     */
     private void endGame() {
         // TODO: stub
         quitButton.fireEvent(new ActionEvent());
     }
 
+    /**
+     * Sets up the scene variables based on the data in config.
+     * @param config the GameConfig object to get information from
+     */
     public void setVars(GameConfig config) {
         this.config = config;
 

@@ -17,6 +17,9 @@ import main.records.ProblemType;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * This class is responsible for controlling the MainMenu scene.
+ */
 public class MainMenuController {
     private GameType gameType = GameType.TIMED;
     private ProblemType problemType = ProblemType.ADDITION;
@@ -318,6 +321,8 @@ public class MainMenuController {
         // Set maxAnswer
         maximumAnswerTextField.setText(String.valueOf(config.getMaxAnswer()));
         maximumAnswerTextField.fireEvent(new ActionEvent());
+
+        // TODO: set option radio buttons
 
         // Set minLength
         // TODO: implement minLength

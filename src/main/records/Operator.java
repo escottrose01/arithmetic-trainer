@@ -1,5 +1,8 @@
 package main.records;
 
+/**
+ * An enum representing a set of arithmetic operations.
+ */
 public enum Operator {
     ADD {
         @Override

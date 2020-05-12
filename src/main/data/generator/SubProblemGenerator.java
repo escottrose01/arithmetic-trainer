@@ -5,6 +5,9 @@ import main.records.Operator;
 
 import java.util.Random;
 
+/**
+ * This class creates subtraction problems via an expression tree.
+ */
 public class SubProblemGenerator implements ProblemGenerator {
     private Random rng;
     int minVal;
