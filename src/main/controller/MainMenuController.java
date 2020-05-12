@@ -25,6 +25,8 @@ public class MainMenuController {
     private ProblemType problemType = ProblemType.ADDITION;
     private int minAnswer = 0;
     private int maxAnswer = 10;
+    private int minLength = 2;
+    private int maxLength = 2;
     private int gameLength = 5; // Might be minutes or questions
 
     @FXML
@@ -105,6 +107,12 @@ public class MainMenuController {
     @FXML
     private TextField maximumAnswerTextField;
 
+    @FXML
+    private TextField minimumLengthTextField;
+
+    @FXML
+    private TextField maximumLengthTextField;
+
     /**
      * Quits the application.
      */
@@ -136,8 +144,8 @@ public class MainMenuController {
                 problemType,
                 minAnswer,
                 maxAnswer,
-                4,
-                4,
+                minLength,
+                maxLength,
                 gameLength
         ));
         controller.startGame();
@@ -196,23 +204,35 @@ public class MainMenuController {
         if (event.getSource() == easyRadioButton) {
             minimumAnswerTextField.setText("0");
             maximumAnswerTextField.setText("10");
+            minimumLengthTextField.setText("2");
+            maximumLengthTextField.setText("2");
             updateMinimumAnswer();
             updateMaximumAnswer();
-            customOptions.setVisible(false);
+            updateMinimumLength();
+            updateMaximumLength();
+            customOptions.setVisible(true);
         } else if (event.getSource() == mediumRadioButton) {
             minimumAnswerTextField.setText("0");
             maximumAnswerTextField.setText("100");
+            minimumLengthTextField.setText("2");
+            maximumLengthTextField.setText("4");
             updateMinimumAnswer();
             updateMaximumAnswer();
-            customOptions.setVisible(false);
+            updateMinimumLength();
+            updateMaximumLength();
+            customOptions.setVisible(true);
         } else if (event.getSource() == hardRadioButton) {
             minimumAnswerTextField.setText("0");
             maximumAnswerTextField.setText("1000");
+            minimumLengthTextField.setText("3");
+            maximumLengthTextField.setText("6");
             updateMinimumAnswer();
             updateMaximumAnswer();
-            customOptions.setVisible(false);
+            updateMinimumLength();
+            updateMaximumLength();
+            customOptions.setDisable(true);
         } else if (event.getSource() == customRadioButton) {
-            customOptions.setVisible(true);
+            customOptions.setDisable(false);
         }
     }
 
@@ -253,6 +273,48 @@ public class MainMenuController {
         } finally {
             maximumAnswerTextField.setText(String.valueOf(maxAnswer));
             maximumAnswerTextField.positionCaret(maximumAnswerTextField.getLength());
+        }
+    }
+
+    /**
+     * Updates the maxLength field based on user input into the minimumLengthTextField, resolving
+     * ordering conflicts if this field is higher than the maxLength.
+     */
+    @FXML
+    void updateMinimumLength() {
+        try {
+            minLength = Integer.parseInt(minimumLengthTextField.getText());
+            minLength = Integer.max(minLength, 2);
+            minLength = Integer.min(minLength, 10);
+            if (maxLength < minLength) {
+                maximumLengthTextField.setText(minimumLengthTextField.getText());
+                updateMaximumLength();
+            }
+        } catch (NumberFormatException ignored) {
+        } finally {
+            minimumLengthTextField.setText(String.valueOf(minLength));
+            minimumLengthTextField.positionCaret(minimumLengthTextField.getLength());
+        }
+    }
+
+    /**
+     * Updates the maxLength field based on user input into the maximumLengthTextField, resolving
+     * ordering conflicts if this field is smaller than the minLength.
+     */
+    @FXML
+    void updateMaximumLength() {
+        try {
+            maxLength = Integer.parseInt(maximumLengthTextField.getText());
+            maxLength = Integer.max(maxLength, 2);
+            maxLength = Integer.min(maxLength, 10);
+            if (maxLength < minLength) {
+                minimumLengthTextField.setText(maximumAnswerTextField.getText());
+                updateMinimumLength();
+            }
+        } catch (NumberFormatException ignored) {
+        } finally {
+            maximumLengthTextField.setText(String.valueOf(maxLength));
+            maximumLengthTextField.positionCaret(maximumLengthTextField.getLength());
         }
     }
 
@@ -325,10 +387,12 @@ public class MainMenuController {
         // TODO: set option radio buttons
 
         // Set minLength
-        // TODO: implement minLength
+        minimumLengthTextField.setText(String.valueOf(config.getMinLength()));
+        minimumLengthTextField.fireEvent(new ActionEvent());
 
         // Set maxLength
-        // TODO: implement maxLength
+        maximumLengthTextField.setText(String.valueOf(config.getMaxLength()));
+        maximumLengthTextField.fireEvent(new ActionEvent());
 
         // Set gameLength
         gameTypeTextField.setText(String.valueOf(config.getGameLength()));
@@ -364,6 +428,8 @@ public class MainMenuController {
         assert minimumAnswerTextField != null : "fx:id=\"minimumAnswerTextField\" was not injected: check your FXML file 'mainmenu.fxml'.";
         assert maximumAnswerTextFieldLabel != null : "fx:id=\"maximumAnswerTextFieldLabel\" was not injected: check your FXML file 'mainmenu.fxml'.";
         assert maximumAnswerTextField != null : "fx:id=\"maximumAnswerTextField\" was not injected: check your FXML file 'mainmenu.fxml'.";
+        assert minimumLengthTextField != null : "fx:id=\"minimumLengthTextField\" was not injected: check your FXML file 'mainmenu.fxml'.";
+        assert maximumLengthTextField != null : "fx:id=\"maxiumumLengthTextField\" was not injected: check your FXML file 'mainmenu.fxml'.";
     }
 }
 

@@ -120,21 +120,32 @@
                         <RadioButton fx:id="customRadioButton" mnemonicParsing="false" onAction="#updateOptions" text="Custom" toggleGroup="$difficulty" />
                      </children>
                   </HBox>
-                  <VBox fx:id="customOptions" prefHeight="200.0" prefWidth="100.0" spacing="10.0" visible="false">
+                  <VBox fx:id="customOptions" disable="true" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
                      <children>
-                        <HBox prefWidth="200.0" spacing="5.0">
+                        <HBox alignment="CENTER_RIGHT" prefWidth="200.0" spacing="5.0">
                            <children>
                               <Label fx:id="minimumAnswerTextFieldLabel" text="Minimum Answer" />
                               <TextField fx:id="minimumAnswerTextField" onAction="#updateMinimumAnswer" text="0" />
                            </children>
                         </HBox>
-                        <HBox prefWidth="200.0" spacing="5.0">
+                        <HBox alignment="CENTER_RIGHT" prefWidth="200.0" spacing="5.0">
                            <children>
                               <Label fx:id="maximumAnswerTextFieldLabel" text="Maximum Answer" />
                               <TextField fx:id="maximumAnswerTextField" onAction="#updateMaximumAnswer" text="10" />
                            </children>
                         </HBox>
-                        <HBox prefWidth="200.0" />
+                        <HBox alignment="CENTER_RIGHT" prefWidth="200.0" spacing="5.0">
+                           <children>
+                              <Label fx:id="minimumLengthTextFieldLabel" text="Minimum Length" />
+                              <TextField fx:id="minimumLengthTextField" onAction="#updateMinimumLength" text="2" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT" prefWidth="200.0" spacing="5.0">
+                           <children>
+                              <Label fx:id="maximumLengthTextFieldLabel" text="Maximum Length" />
+                              <TextField fx:id="maximumLengthTextField" onAction="#updateMaximumLength" text="2" />
+                           </children>
+                        </HBox>
                      </children>
                   </VBox>
                </children>
