@@ -210,7 +210,7 @@ public class MainMenuController {
             updateMaximumAnswer();
             updateMinimumLength();
             updateMaximumLength();
-            customOptions.setVisible(true);
+            customOptions.setDisable(true);
         } else if (event.getSource() == mediumRadioButton) {
             minimumAnswerTextField.setText("0");
             maximumAnswerTextField.setText("100");
@@ -220,7 +220,7 @@ public class MainMenuController {
             updateMaximumAnswer();
             updateMinimumLength();
             updateMaximumLength();
-            customOptions.setVisible(true);
+            customOptions.setDisable(true);
         } else if (event.getSource() == hardRadioButton) {
             minimumAnswerTextField.setText("0");
             maximumAnswerTextField.setText("1000");
@@ -384,7 +384,8 @@ public class MainMenuController {
         maximumAnswerTextField.setText(String.valueOf(config.getMaxAnswer()));
         maximumAnswerTextField.fireEvent(new ActionEvent());
 
-        // TODO: set option radio buttons
+        // Default to custom options
+        customRadioButton.fire();
 
         // Set minLength
         minimumLengthTextField.setText(String.valueOf(config.getMinLength()));
