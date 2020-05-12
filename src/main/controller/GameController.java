@@ -203,56 +203,36 @@ public class GameController {
      */
     public void setVars(GameConfig config) {
         this.config = config;
-
-        // TODO: Move constructor outside of switch
+        
+        Operator[] ops;
         switch (config.getProblemType()) {
             case ADDITION:
-                problemGenerator = new ComboProblemGenerator(
-                    config.getMinAnswer(),
-                    config.getMaxAnswer(),
-                    config.getMinLength(),
-                    config.getMaxLength(),
-                    new Operator[]{Operator.ADD}
-                );
+                ops = new Operator[]{Operator.ADD};
                 break;
             case SUBTRACTION:
-                problemGenerator = new ComboProblemGenerator(
-                        config.getMinAnswer(),
-                        config.getMaxAnswer(),
-                        config.getMinLength(),
-                        config.getMaxLength(),
-                        new Operator[]{Operator.SUBTRACT}
-                );
+                ops = new Operator[]{Operator.SUBTRACT};
                 break;
             case MULTIPLICATION:
-                problemGenerator = new ComboProblemGenerator(
-                        config.getMinAnswer(),
-                        config.getMaxAnswer(),
-                        config.getMinLength(),
-                        config.getMaxLength(),
-                        new Operator[]{Operator.MULTIPLY}
-                );
+                ops = new Operator[]{Operator.MULTIPLY};
                 break;
             case DIVISION:
-                problemGenerator = new ComboProblemGenerator(
-                        config.getMinAnswer(),
-                        config.getMaxAnswer(),
-                        config.getMinLength(),
-                        config.getMaxLength(),
-                        new Operator[]{Operator.DIVIDE}
-                );
+                ops = new Operator[]{Operator.DIVIDE};
                 break;
             case COMBO:
-                problemGenerator = new ComboProblemGenerator(
-                        config.getMinAnswer(),
-                        config.getMaxAnswer(),
-                        config.getMinLength(),
-                        config.getMaxLength(),
-                        new Operator[]{Operator.ADD, Operator.SUBTRACT, Operator.MULTIPLY,
-                                Operator.DIVIDE}
-                );
+                ops = new Operator[]{Operator.ADD, Operator.SUBTRACT, Operator.MULTIPLY,
+                        Operator.DIVIDE};
                 break;
+            default:
+                ops = new Operator[]{};
         }
+        
+        problemGenerator = new ComboProblemGenerator(
+                config.getMinAnswer(),
+                config.getMaxAnswer(),
+                config.getMinLength(),
+                config.getMaxLength(),
+                ops
+        );
     }
 
     @FXML
